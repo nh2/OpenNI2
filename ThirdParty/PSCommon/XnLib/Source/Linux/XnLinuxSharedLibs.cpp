@@ -24,13 +24,16 @@
 #include <XnOS.h>
 #include <dlfcn.h>
 #include <XnLog.h>
+#include <XnErrorLogger.h>
 
 //---------------------------------------------------------------------------
 // Code
 //---------------------------------------------------------------------------
 #if XN_PLATFORM == XN_PLATFORM_ANDROID_ARM
-static XnStatus FindLibrary(const XnChar* strLibName, XnChar* cpLibPath, const XnUInt32 nBufferSize)
+static XnStatus FindLibrary(const XnChar* strLibName, XnChar* cpLibPath, const XnUInt32 nBufferSize, xnl::ErrorLogger& errorLogger)
 {
+	errorLogger.Append("FindLibrary 1: %s", strLibName);
+
 	XnBool bExists;
 
 	// try application libraries
@@ -63,8 +66,10 @@ static XnStatus FindLibrary(const XnChar* strLibName, XnChar* cpLibPath, const X
 }
 #endif
 
-XN_C_API XnStatus xnOSLoadLibrary(const XnChar* cpFileName, XN_LIB_HANDLE* pLibHandle)
+XN_C_API XnStatus xnOSLoadLibrary(const XnChar* cpFileName, XN_LIB_HANDLE* pLibHandle, void * logger)
 {
+	xnl::ErrorLogger errorLogger = *(xnl::ErrorLogger *) logger;
+
 	// Validate the input/output pointers (to make sure none of them is NULL)
 	XN_VALIDATE_INPUT_PTR(cpFileName);
 	XN_VALIDATE_OUTPUT_PTR(pLibHandle);
@@ -72,11 +77,13 @@ XN_C_API XnStatus xnOSLoadLibrary(const XnChar* cpFileName, XN_LIB_HANDLE* pLibH
 	XnChar strLibPath[XN_FILE_MAX_PATH];
 	
 #if XN_PLATFORM == XN_PLATFORM_ANDROID_ARM
-	XnStatus nRetVal = FindLibrary(cpFileName, strLibPath, sizeof(strLibPath));
+	XnStatus nRetVal = FindLibrary(cpFileName, strLibPath, sizeof(strLibPath), errorLogger);
 	if (nRetVal != XN_STATUS_OK)
 	{
+		errorLogger.Append("xnOSLoadLibrary: Couldn't find %s", cpFileName);
 		return nRetVal;
 	}
+	errorLogger.Append("xnOSLoadLibrary: FOUND %s at %s", cpFileName, strLibPath);
 #else
 	// Resolve the file name to the absolute path. This is necessary because
 	// we need to get the absolute path of this library by dladdr() later.

@@ -35,7 +35,8 @@
 #		endif
 #	endif
 #	include "Win32/OniPlatformWin32.h"
-#elif defined (ANDROID) && defined (__arm__)
+// #elif defined (ANDROID) && defined (__arm__)
+#elif 1
 #	include "Android-Arm/OniPlatformAndroid-Arm.h"
 #elif (__linux__ && (i386 || __x86_64__))
 #	include "Linux-x86/OniPlatformLinux-x86.h"

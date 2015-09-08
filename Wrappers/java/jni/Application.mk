@@ -14,9 +14,9 @@
 # limitations under the License. 
 
 # Android should be >= v4.0
-APP_PLATFORM := android-14
+APP_PLATFORM := android-23
 
 # Use ARM v7a instruction set
-APP_ABI := armeabi-v7a
-ARCH_ARM_HAVE_ARMV7A := true
-ARCH_ARM_HAVE_NEON := true
+APP_ABI := x86_64
+ARCH_ARM_HAVE_ARMV7A := false
+ARCH_ARM_HAVE_NEON := false

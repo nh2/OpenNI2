@@ -41,7 +41,7 @@ DriverHandler::DriverHandler(const char* library, xnl::ErrorLogger& errorLogger)
 
 	xnOSMemSet(&funcs, 0, sizeof(funcs));
 
-	XnStatus rc = xnOSLoadLibrary(library, &m_libHandle);
+	XnStatus rc = xnOSLoadLibrary(library, &m_libHandle, (void *) &errorLogger);
 	if (rc != XN_STATUS_OK)
 	{
 		errorLogger.Append("LibraryHandler: Couldn't load library %s", library);
