@@ -466,6 +466,7 @@ XN_C_API XnStatus XN_C_DECL xnOSSetCurrentDir(const XnChar* cpDirName);
 #if XN_PLATFORM == XN_PLATFORM_ANDROID_ARM
 XN_C_API XnStatus XN_C_DECL xnOSGetApplicationFilesDir(XnChar* cpDirName, const XnUInt32 nBufferSize);
 XN_C_API XnStatus XN_C_DECL xnOSGetApplicationLibDir(XnChar* cpDirName, const XnUInt32 nBufferSize);
+XN_C_API void XN_C_DECL getApplicationName(XnChar* strAppName, const XnUInt32 nBufferSize);
 #endif
 /**
  * Strips the directory separator at the end of the specified path by directly modifying the given string.

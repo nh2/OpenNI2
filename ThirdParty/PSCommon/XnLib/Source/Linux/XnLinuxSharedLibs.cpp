@@ -51,6 +51,28 @@ static XnStatus FindLibrary(const XnChar* strLibName, XnChar* cpLibPath, const X
 		return XN_STATUS_OK;
 	}
 
+	// otherwise, try app files dir (with "-1" and "-2" postfix)
+	// Now checking for "-1" and "-2" is a really ugly hack, but on my x86_64 Android tablet
+	// with Android API 23, each time I compile the application the `.so` files land in the
+	// `/data/app/appname-xxx/x86_64/` directory where `xxx` alternates between `1` and `2`
+	// for each compilation.
+	// See also:
+	//   http://stackoverflow.com/questions/32674781/why-is-my-android-lib-dir-symlink-incorrect
+	char strAppName[1024];
+	getApplicationName(strAppName, sizeof(strAppName));
+	snprintf(cpLibPath, nBufferSize, "/data/app/%s-1/lib/x86_64/%s", strAppName, strLibName);
+	xnOSDoesFileExist(cpLibPath, &bExists);
+	if (bExists)
+	{
+		return XN_STATUS_OK;
+	}
+	snprintf(cpLibPath, nBufferSize, "/data/app/%s-2/lib/x86_64/%s", strAppName, strLibName);
+	xnOSDoesFileExist(cpLibPath, &bExists);
+	if (bExists)
+	{
+		return XN_STATUS_OK;
+	}
+
 	// otherwise, try system dir
 	snprintf(cpLibPath, nBufferSize, "/system/lib/%s", strLibName);
 	xnOSDoesFileExist(cpLibPath, &bExists);
