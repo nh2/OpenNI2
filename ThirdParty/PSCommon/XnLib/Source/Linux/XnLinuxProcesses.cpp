@@ -119,7 +119,7 @@ XN_C_API XnStatus xnOSCreateProcess(const XnChar* strExecutable, XnUInt32 nArgs,
 }
 
 #if XN_PLATFORM == XN_PLATFORM_ANDROID_ARM
-static void getApplicationName(XnChar* strAppName, const XnUInt32 nBufferSize)
+XN_C_API void XN_C_DECL getApplicationName(XnChar* strAppName, const XnUInt32 nBufferSize)
 {
 	FILE *pFile;
 	size_t length;
