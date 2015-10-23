@@ -16,7 +16,6 @@
 # Android should be >= v4.0
 APP_PLATFORM := android-14
 
-# Use ARM v7a instruction set
-APP_ABI := armeabi-v7a
+APP_ABI := arm64-v8a
 ARCH_ARM_HAVE_ARMV7A := true
 ARCH_ARM_HAVE_NEON := true

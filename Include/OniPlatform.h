@@ -46,7 +46,7 @@
 #elif (__APPLE__)
 #	include "MacOSX/OniPlatformMacOSX.h"
 #else
-#	error Xiron Platform Abstraction Layer - Unsupported Platform!
+#	include "Android-Arm/OniPlatformAndroid-Arm.h"
 #endif
 
 #ifdef __cplusplus

@@ -58,7 +58,7 @@
 #elif (__APPLE__)
 #include "MacOSX/XnPlatformMacOSX.h"
 #else
-#error Xiron Platform Abstraction Layer - Unsupported Platform!
+#include "Android-Arm/XnPlatformAndroid-Arm.h"
 #endif
 
 #define XN_MAX_OS_NAME_LENGTH 255
