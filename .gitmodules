@@ -1,0 +1,3 @@
+[submodule "ThirdParty/PSCommon/XnLib/ThirdParty/libusb-leap"]
+	path = ThirdParty/PSCommon/XnLib/ThirdParty/libusb-leap
+	url = git@github.com:leapmotion/libusb.git

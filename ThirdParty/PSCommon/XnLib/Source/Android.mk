@@ -41,12 +41,12 @@ LOCAL_CFLAGS += $(OPENNI2_CFLAGS)
 # Includes
 LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/../Include \
-    $(LOCAL_PATH)/../ThirdParty/libusb-1.0.9-Android/libusb \
+    $(LOCAL_PATH)/../ThirdParty/libusb-leap/libusb \
     $(LOCAL_PATH)/../ThirdParty/LibJPEG
 
 ifdef PS_NDK_BUILD
     # building from NDK
-    LOCAL_SHARED_LIBRARIES += usb
+    LOCAL_SHARED_LIBRARIES += libusb1.0
 else
     LOCAL_C_INCLUDES += external/libusb_aah/libusb 
     LOCAL_C_INCLUDES += external/jpeg
@@ -62,7 +62,7 @@ include $(BUILD_STATIC_LIBRARY)
 
 ifdef PS_NDK_BUILD
     # building from NDK. Include libusb
-    include $(LOCAL_PATH)/../ThirdParty/libusb-1.0.9-Android/Android.mk
+    include $(LOCAL_PATH)/../ThirdParty/libusb-leap/android/jni/Android.mk
 endif
 
 endif
